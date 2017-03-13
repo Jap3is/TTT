@@ -15,12 +15,12 @@ class TicTacToe( object ):
     def Run( self ):
         player = self.__PickXOrOPlayer()
         self.__PrintTicTacToe()
-        options = list( range( 1, 10 ) )
+        positions_left = list( range( 1, 10 ) )
         i = 0
         while True:
             curr_pos = self.__PickANumber( player )
-            if int(curr_pos) in options:
-                options.remove( int(curr_pos) )
+            if int(curr_pos) in positions_left:
+                positions_left.remove( int(curr_pos) )
             else:
                 print( curr_pos + " position has already been picked" )
                 continue
