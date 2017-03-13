@@ -1,5 +1,8 @@
 #!/Library/Frameworks/Python.framework/Versions/3.5/bin/python3
 
+import sys
+import re
+
 class TicTacToe( object ):
 
     def __init__( self ):
@@ -48,20 +51,43 @@ class TicTacToe( object ):
         print( self.list[2][0] + " " + self.list[2][1] + " " + self.list[2][2] )
 
     def Run( self ):
-        curr_move = input( "Who starts first, 'o' or 'x'? " )
-        self.PrintTicTacToe()
-        for i in range(9):
-            curr_pos  = input( "Input a number from 1-9 for " + curr_move + ": " )
-            self.SetCell( curr_pos, curr_move )
-            self.PrintTicTacToe()
-            retval = self.CheckWinner( curr_move )
-            if retval == curr_move:
-                print( curr_move + " is the winner!" )
+        inputStr = "Who starts first, 'o' or 'x'? "
+        while True:
+            player = input( inputStr )
+            out = re.match( '[ox]|quit', player )
+            if player == "quit":
+                sys.exit( 0 )
+            if out:
                 break
-            if curr_move == "x":
-                curr_move = "o"
+        self.PrintTicTacToe()
+        options = list( range( 1, 10 ) )
+        i = 0
+        while True:
+            if i == 9:
+                break
+            while True:
+                curr_pos  = input( "Pick a number from 1-9 for " + player + ": " )
+                out = re.match( '[1-9]|quit', curr_pos )
+                if curr_pos == "quit":
+                    sys.exit( 0 )
+                if out:
+                    break
+            if int(curr_pos) in options:
+                options.remove( int( curr_pos ) )
             else:
-                curr_move = "x"
+                print( curr_pos + " position is already picked" )
+                continue
+            self.SetCell( curr_pos, player )
+            self.PrintTicTacToe()
+            retval = self.CheckWinner( player )
+            if retval == player:
+                print( player + " is the winner!" )
+                break
+            if player == "x":
+                player = "o"
+            else:
+                player = "x"
+            i += 1
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
 
