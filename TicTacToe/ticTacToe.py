@@ -75,7 +75,7 @@ class TicTacToe( object ):
             if int(curr_pos) in options:
                 options.remove( int( curr_pos ) )
             else:
-                print( curr_pos + " position is already picked" )
+                print( curr_pos + " position has already been picked" )
                 continue
             self.SetCell( curr_pos, player )
             self.PrintTicTacToe()
