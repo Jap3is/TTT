@@ -7,15 +7,16 @@ class TicTacToe( object ):
 
     def __init__( self, showResultOnly=False ):
         self.list = [
-            [ "1", "2", "3" ],
-            [ "4", "5", "6" ],
-            [ "7", "8", "9" ],
+            "1", "2", "3",
+            "4", "5", "6",
+            "7", "8", "9"
         ]
         self.showResultOnly = showResultOnly
 
     def Run( self, player=None, moves=None ):
         MAX_CELLS = 9
         MAX_IDX_WO_WINNER = 3
+        self.__ResetCells()
         if player == None:
             player = self.__PickXOrOPlayer()
         if self.showResultOnly == False:
@@ -50,43 +51,33 @@ class TicTacToe( object ):
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
 
+    def __ResetCells( self ):
+        self.list = [
+            "1", "2", "3",
+            "4", "5", "6",
+            "7", "8", "9"
+        ]
+
     def __SetCell( self, cellnum, x_or_o ):
-        if cellnum == "1":
-            self.list[0][0] = x_or_o
-        elif cellnum == "2":
-            self.list[0][1] = x_or_o
-        elif cellnum == "3":
-            self.list[0][2] = x_or_o
-        elif cellnum == "4":
-            self.list[1][0] = x_or_o
-        elif cellnum == "5":
-            self.list[1][1] = x_or_o
-        elif cellnum == "6":
-            self.list[1][2] = x_or_o
-        elif cellnum == "7":
-            self.list[2][0] = x_or_o
-        elif cellnum == "8":
-            self.list[2][1] = x_or_o
-        elif cellnum == "9":
-            self.list[2][2] = x_or_o
+        self.list[int(cellnum)-1] = x_or_o
 
     def __CheckWinner( self, x_or_o ):
-        if ( ( self.list[0][0] == x_or_o and self.list[0][1] == x_or_o and self.list[0][2] == x_or_o ) or
-             ( self.list[1][0] == x_or_o and self.list[1][1] == x_or_o and self.list[1][2] == x_or_o ) or
-             ( self.list[2][0] == x_or_o and self.list[2][1] == x_or_o and self.list[2][2] == x_or_o ) or
-             ( self.list[0][0] == x_or_o and self.list[1][0] == x_or_o and self.list[2][0] == x_or_o ) or
-             ( self.list[0][1] == x_or_o and self.list[1][1] == x_or_o and self.list[2][1] == x_or_o ) or
-             ( self.list[0][2] == x_or_o and self.list[1][2] == x_or_o and self.list[2][2] == x_or_o ) or
-             ( self.list[0][0] == x_or_o and self.list[1][1] == x_or_o and self.list[2][2] == x_or_o ) or
-             ( self.list[0][2] == x_or_o and self.list[1][1] == x_or_o and self.list[2][0] == x_or_o ) ):
+        if ( ( self.list[0] == x_or_o and self.list[1] == x_or_o and self.list[2] == x_or_o ) or
+             ( self.list[3] == x_or_o and self.list[4] == x_or_o and self.list[5] == x_or_o ) or
+             ( self.list[6] == x_or_o and self.list[7] == x_or_o and self.list[8] == x_or_o ) or
+             ( self.list[0] == x_or_o and self.list[3] == x_or_o and self.list[6] == x_or_o ) or
+             ( self.list[1] == x_or_o and self.list[4] == x_or_o and self.list[7] == x_or_o ) or
+             ( self.list[2] == x_or_o and self.list[5] == x_or_o and self.list[8] == x_or_o ) or
+             ( self.list[0] == x_or_o and self.list[4] == x_or_o and self.list[8] == x_or_o ) or
+             ( self.list[2] == x_or_o and self.list[4] == x_or_o and self.list[6] == x_or_o ) ):
              return x_or_o
         else:
              return "-"
 
     def __PrintTicTacToe( self ):
-        print( self.list[0][0] + " " + self.list[0][1] + " " + self.list[0][2] )
-        print( self.list[1][0] + " " + self.list[1][1] + " " + self.list[1][2] )
-        print( self.list[2][0] + " " + self.list[2][1] + " " + self.list[2][2] )
+        print( self.list[0] + " " + self.list[1] + " " + self.list[2] )
+        print( self.list[3] + " " + self.list[4] + " " + self.list[5] )
+        print( self.list[6] + " " + self.list[7] + " " + self.list[8] )
 
     def __PickXOrOPlayer( self ):
         inputStr = "Who starts first, 'o' or 'x'? "

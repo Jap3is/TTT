@@ -16,6 +16,7 @@ class TicTacToeUsingDict( object ):
     def Run( self, player=None, moves=None ):
         MAX_CELLS = 9
         MAX_IDX_WO_WINNER = 3
+        self.__ResetCells()
         if player == None:
             player = self.__PickXOrOPlayer()
         if self.showResultOnly == False:
@@ -49,6 +50,13 @@ class TicTacToeUsingDict( object ):
                 break
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
+
+    def __ResetCells( self ):
+        self.list = {
+            "1": "1", "2": "2", "3": "3",
+            "4": "4", "5": "5", "6": "6",
+            "7": "7", "8": "8", "9": "9"
+        }
 
     def __SetCell( self, cellnum, x_or_o ):
         self.list[cellnum] = x_or_o
