@@ -5,18 +5,22 @@ import re
 
 class TicTacToe( object ):
 
-    def __init__( self ):
+    def __init__( self, showResultOnly=False ):
         self.list = [
             [ "1", "2", "3" ],
             [ "4", "5", "6" ],
             [ "7", "8", "9" ],
         ]
+        self.showResultOnly = showResultOnly
 
     def Run( self, player=None, moves=None ):
+        MAX_CELLS = 9
+        MAX_IDX_WO_WINNER = 3
         if player == None:
             player = self.__PickXOrOPlayer()
-        self.__PrintTicTacToe()
-        positions_left = list( range( 1, 10 ) )
+        if self.showResultOnly == False:
+            self.__PrintTicTacToe()
+        positions_left = list( range( 1, MAX_CELLS+1 ) )
         i = 0
         while True:
             if moves == None:
@@ -29,8 +33,9 @@ class TicTacToe( object ):
                 print( curr_pos + " position has already been picked" )
                 continue
             self.__SetCell( curr_pos, player )
-            self.__PrintTicTacToe()
-            if i > 3:
+            if self.showResultOnly == False:
+                self.__PrintTicTacToe()
+            if i > MAX_IDX_WO_WINNER:
                 retval = self.__CheckWinner( player )
                 if retval == player:
                     print( player + " is the winner!" )
@@ -40,7 +45,7 @@ class TicTacToe( object ):
             else:
                 player = "x"
             i += 1
-            if i == 9:
+            if i == MAX_CELLS:
                 break
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
