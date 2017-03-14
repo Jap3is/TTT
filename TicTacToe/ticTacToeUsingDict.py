@@ -5,6 +5,8 @@ import re
 
 class TicTacToeUsingDict( object ):
 
+    __gameCount = 0
+
     def __init__( self, showResultOnly=False ):
         self.list = {
             "1": "1", "2": "2", "3": "3",
@@ -12,6 +14,7 @@ class TicTacToeUsingDict( object ):
             "7": "7", "8": "8", "9": "9"
         }
         self.showResultOnly = showResultOnly
+        TicTacToeUsingDict.__gameCount = 0
 
     def Run( self, player=None, moves=None ):
         MAX_CELLS = 9
@@ -39,7 +42,6 @@ class TicTacToeUsingDict( object ):
             if i > MAX_IDX_WO_WINNER:
                 retval = self.__CheckWinner( player )
                 if retval == player:
-                    print( player + " is the winner!" )
                     break
             if player == "x":
                 player = "o"
@@ -48,8 +50,17 @@ class TicTacToeUsingDict( object ):
             i += 1
             if i == MAX_CELLS:
                 break
+        TicTacToeUsingDict.__gameCount += 1
+        self.__PrintGameResult( retval )
+
+    def __PrintGameResult( self, retval ):
+        print( "-- Game " + str( TicTacToeUsingDict.__gameCount ) + " Result --" )
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
+        else:
+            print( retval + " is the winner!" )
+        self.__PrintTicTacToe()
+        print( "------- End -------" )
 
     def __ResetCells( self ):
         self.list = {

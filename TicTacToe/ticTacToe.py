@@ -4,6 +4,7 @@ import sys
 import re
 
 class TicTacToe( object ):
+    __gameCount = 0
 
     def __init__( self, showResultOnly=False ):
         self.list = [
@@ -12,6 +13,7 @@ class TicTacToe( object ):
             "7", "8", "9"
         ]
         self.showResultOnly = showResultOnly
+        TicTacToe.__gameCount = 0
 
     def Run( self, player=None, moves=None ):
         MAX_CELLS = 9
@@ -39,7 +41,6 @@ class TicTacToe( object ):
             if i > MAX_IDX_WO_WINNER:
                 retval = self.__CheckWinner( player )
                 if retval == player:
-                    print( player + " is the winner!" )
                     break
             if player == "x":
                 player = "o"
@@ -48,8 +49,16 @@ class TicTacToe( object ):
             i += 1
             if i == MAX_CELLS:
                 break
+        TicTacToe.__gameCount += 1
+        self.__PrintGameResult( retval )
+
+    def __PrintGameResult( self, retval ):
+        print( "-- Game " + str( TicTacToe.__gameCount ) + " Result --" )
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
+        else:
+            print( retval + " is the winner!" )
+        self.__PrintTicTacToe()
 
     def __ResetCells( self ):
         self.list = [
