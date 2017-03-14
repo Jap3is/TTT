@@ -12,13 +12,17 @@ class TicTacToe( object ):
             [ "7", "8", "9" ],
         ]
 
-    def Run( self ):
-        player = self.__PickXOrOPlayer()
+    def Run( self, player=None, moves=None ):
+        if player == None:
+            player = self.__PickXOrOPlayer()
         self.__PrintTicTacToe()
         positions_left = list( range( 1, 10 ) )
         i = 0
         while True:
-            curr_pos = self.__PickANumber( player )
+            if moves == None:
+                curr_pos = self.__PickANumber( player )
+            else:
+                curr_pos = moves[i]
             if int(curr_pos) in positions_left:
                 positions_left.remove( int(curr_pos) )
             else:
@@ -41,35 +45,6 @@ class TicTacToe( object ):
         if retval != "x" and retval != "o":
             print( "It's a draw!" )
 
-    def SimulatedRun( self ):
-        player = "o"
-        self.__PrintTicTacToe()
-        positions_left = list( range( 1, 10 ) )
-        i = 0
-        seq = [ "1", "2", "5", "9", "7", "4", "8", "3", "6" ]
-        while True:
-            curr_pos = seq[i]
-            if int(curr_pos) in positions_left:
-                positions_left.remove( int(curr_pos) )
-            else:
-                print( curr_pos + " position has already been picked" )
-                continue
-            self.__SetCell( curr_pos, player )
-            self.__PrintTicTacToe()
-            if i > 3:
-                retval = self.__CheckWinner( player )
-                if retval == player:
-                    print( player + " is the winner!" )
-                    break
-            if player == "x":
-                player = "o"
-            else:
-                player = "x"
-            i += 1
-            if i == 9:
-                break
-        if retval != "x" and retval != "o":
-            print( "It's a draw!" )
     def __SetCell( self, cellnum, x_or_o ):
         if cellnum == "1":
             self.list[0][0] = x_or_o
