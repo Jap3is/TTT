@@ -60,7 +60,6 @@ class TicTacToeUsingDict( object ):
         else:
             print( retval + " is the winner!" )
         self.__PrintTicTacToe()
-        print( "------- End -------" )
 
     def __ResetCells( self ):
         self.list = {
